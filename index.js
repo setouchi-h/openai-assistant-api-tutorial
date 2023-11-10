@@ -1,8 +1,9 @@
 // 必要なライブラリをインポート
-const { OpenAIAPI } = require("openai");
+require("dotenv").config();
+const { OpenAI } = require("openai");
 
 // APIキーを設定（実際の開発では環境変数や別のセキュアな方法で管理する）
-const openai = new OpenAIAPI({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
@@ -30,6 +31,7 @@ const addMessageToThread = async (threadId, userMessage) => {
     role: "user",
     content: userMessage,
   });
+  console.log(message.content);
   return message;
 };
 
@@ -68,7 +70,7 @@ const useMathTutor = async () => {
     "Please address the user as Jane Doe. The user has a premium account."
   );
   const messages = await getAssistantResponse(thread.id, run.id);
-  console.log(messages);
+  console.log(messages.data[0].content);
 };
 
 // チューターの使用を開始
