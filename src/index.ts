@@ -26,7 +26,7 @@ const createThread = async () => {
 };
 
 // ステップ 3: スレッドへのメッセージの追加
-const addMessageToThread = async (threadId, userMessage) => {
+const addMessageToThread = async (threadId: string, userMessage: string) => {
   const message = await openai.beta.threads.messages.create(threadId, {
     role: "user",
     content: userMessage,
@@ -36,7 +36,7 @@ const addMessageToThread = async (threadId, userMessage) => {
 };
 
 // ステップ 4: アシスタントの実行
-const runAssistant = async (threadId, assistantId, additionalInstructions) => {
+const runAssistant = async (threadId: string, assistantId: string, additionalInstructions: string) => {
   const run = await openai.beta.threads.runs.create(threadId, {
     assistant_id: assistantId,
     instructions: additionalInstructions,
@@ -45,7 +45,7 @@ const runAssistant = async (threadId, assistantId, additionalInstructions) => {
 };
 
 // ステップ 5: アシスタントの応答の表示
-const getAssistantResponse = async (threadId, runId) => {
+const getAssistantResponse = async (threadId: string, runId: string) => {
   // 実行が完了するまで待機
   let run = await openai.beta.threads.runs.retrieve(threadId, runId);
   while (run.status !== "completed") {
